@@ -1,0 +1,55 @@
+	answers
+1	To insert multiple records in a table
+	INSERT INTO TableName (Column1, Column2, ...)
+	VALUES
+	    (Value1, Value2, ...),
+	    (Value1, Value2, ...),
+	    ...
+	    (Value1, Value2, ...);
+	
+2	To add additional column in table
+	ALTER TABLE TableName
+	ADD NewColumn DataType;
+	
+3	To change constraint In a table
+	ALTER TABLE TableName
+	DROP CONSTRAINT ConstraintName;
+	
+	ALTER TABLE TableName
+	ADD CONSTRAINT NewConstraint CHECK (Condition);
+	
+4	To alter column name in table
+	ALTER TABLE TableName
+	CHANGE OldColumnName NewColumnName DataType;
+	
+5	To change table name in sql
+	ALTER TABLE OldTableName
+	RENAME TO NewTableName;
+	
+6	To update a particular value in a table
+	UPDATE TableName
+	SET ColumnName = NewValue
+	WHERE Condition;
+	
+7	Employee table
+	CREATE TABLE Employees (
+	    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+	    Name VARCHAR(50) NOT NULL,
+	    Age INT CHECK (Age >= 18),
+	    Department VARCHAR(50) DEFAULT 'IT'
+	);
+	
+	customer table
+	CREATE TABLE Customer (
+	    cust_id INT PRIMARY KEY,
+	    cust_name VARCHAR(255),
+	    date DATE CHECK (date >= '2023-01-01' AND date <= '2023-06-30'),
+	    city VARCHAR(50),
+	    state VARCHAR(50),
+	    email_id VARCHAR(100),
+	    device VARCHAR(50),
+	    channel VARCHAR(50),
+	    in_time TIMESTAMP,
+	    out_time TIMESTAMP,
+	    CONSTRAINT ck_time_variation CHECK (out_time >= in_time + INTERVAL 1 HOUR AND out_time <= in_time + INTERVAL 2 HOUR)
+	);
