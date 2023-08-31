@@ -1,0 +1,42 @@
+SELECT CustomerID, SUM(Quantity) AS TotalQuantity
+FROM Orders
+GROUP BY CustomerID
+HAVING SUM(Quantity) > 100
+ORDER BY TotalQuantity DESC;
+
+
+SELECT column	
+FROM table	
+ORDER BY column DESC	
+LIMIT 1 OFFSET 1;	
+	
+SELECT column
+FROM table
+WHERE column IN (SELECT column FROM another_table);
+
+Finding the row with the maximum value in a column within each partition: Using the RANK() window function:
+SELECT column1, column2, ...
+FROM (
+  SELECT column1, column2, ..., 
+         RANK() OVER (PARTITION BY partition_column ORDER BY max_column DESC) AS rnk
+  FROM your_table
+) ranked
+WHERE rnk = 1;
+
+
+
+Calculating cumulative sum within each partition using window functions: Using the SUM() window function:
+SELECT column1, column2, ..., 
+       SUM(amount_column) OVER (PARTITION BY partition_column ORDER BY order_column) AS cumulative_sum
+FROM your_table;
+
+
+
+Ranking rows within each partition using PARTITION BY: Using the ROW_NUMBER() window function:
+SELECT column1, column2, ..., 
+       ROW_NUMBER() OVER (PARTITION BY partition_column ORDER BY order_column) AS row_num
+FROM your_table;
+
+
+
+
