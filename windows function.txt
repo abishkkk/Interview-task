@@ -1,0 +1,30 @@
+
+1	Ranking employees by salary
+	SELECT EmployeeID, Name, Salary,
+	       RANK() OVER (ORDER BY Salary DESC) AS Rank
+	FROM Employees;
+	
+2	Running total of sales
+	SELECT TransactionID, Date, Amount,
+	       SUM(Amount) OVER (ORDER BY Date) AS RunningTotal
+	FROM Sales;
+	
+3	Finding the top Nproducts in each  categories
+	WITH RankedProducts AS (
+	    SELECT ProductID, ProductName, Category, Sales,
+	           ROW_NUMBER() OVER (PARTITION BY Category ORDER BY Sales DESC) AS RowRank
+	    FROM Products
+	)
+	SELECT ProductID, ProductName, Category, Sales
+	FROM RankedProducts
+	WHERE RowRank <= N;
+	
+4	Calculating the Difference in Revenue between Years: Using LAG() function for year-on-year growth
+	SELECT Year, Revenue,
+	       Revenue - LAG(Revenue, 1) OVER (ORDER BY Year) AS RevenueDifference
+	FROM Revenue;
+	
+5	Calculating average monthly sales
+	SELECT TransactionID, Date, Amount,
+	       AVG(Amount) OVER (PARTITION BY ProductID, EXTRACT(MONTH FROM Date)) AS AvgMonthlySales
+	FROM Sales;
