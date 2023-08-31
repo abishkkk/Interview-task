@@ -1,0 +1,73 @@
+					
+1	SELECT p.firstname, p.lastname, a.city, a.state				
+	FROM person p				
+	LEFT JOIN address a ON p.Id = a.personid;				
+					
+					
+					
+					
+					
+					
+					
+2	SELECT DISTINCT Salary AS secondHighestSalary				
+	FROM Employee				
+	ORDER BY Salary DESC				
+	LIMIT 1 OFFSET 1;				
+					
+					
+					
+3	SELECT DISTINCT Salary AS nthHighestSalary				
+	FROM Employee				
+	ORDER BY Salary DESC				
+	LIMIT 1 OFFSET N - 1;				
+					
+					
+4	SELECT name, bonus				
+	FROM Employee				
+	WHERE bonus < 1000;				
+					
+					
+					
+					
+					
+					
+					
+5	SELECT c.name				
+	FROM Customer c				
+	LEFT JOIN Customer r ON c.referee_id = r.id				
+	WHERE r.id IS NULL OR r.id <> 2;				
+					
+					
+					
+					
+					
+6	SELECT x, y, z,				
+	    CASE 				
+	        WHEN x + y > z AND y + z > x AND z + x > y THEN 'Yes'				
+	        ELSE 'No'				
+	    END AS triangle				
+	FROM Triangle;				
+					
+					
+					
+					
+7	SELECT actor_id, director_id				
+	FROM ActorDirector				
+	GROUP BY actor_id, director_id				
+	HAVING COUNT(*) >= 3;				
+					
+					
+					
+					
+					
+					
+					
+					
+					
+8	SELECT person_name				
+	FROM Queue				
+	WHERE weight <= 1000				
+	ORDER BY turn DESC				
+	LIMIT 1;				
+					
+					
