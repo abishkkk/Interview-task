@@ -1,0 +1,32 @@
+1.To find the cumulative sum of quantity for each product, ordered by date:
+SELECT order_id, product_id, order_date, quantity,
+       SUM(quantity) OVER (PARTITION BY product_id ORDER BY order_date) AS cumulative_quantity
+FROM orders;
+
+
+2. To calculate the average price for each customer_id, considering only the top 3 most expensive orders:
+WITH ranked_orders AS (
+    SELECT customer_id, price,
+           ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY price DESC) as rank
+    FROM orders
+)
+SELECT customer_id, AVG(price) as avg_price
+FROM ranked_orders
+WHERE rank <= 3
+GROUP BY customer_id;
+
+3.To find the difference in quantity for each product between consecutive orders:
+SELECT order_id, product_id, order_date, quantity,
+       quantity - LAG(quantity, 1) OVER (PARTITION BY product_id ORDER BY order_date) AS quantity_difference
+FROM orders;
+4.To determine the rank of each order for each customer based on the quantity, in descending order:
+SELECT order_id, customer_id, quantity,
+       RANK() OVER (PARTITION BY customer_id ORDER BY quantity DESC) AS quantity_rank
+FROM orders;
+
+
+
+5.To find the running total (cumulative sum) of the price for each customer, sorted by order_date:
+SELECT order_id, customer_id, order_date, price,
+       SUM(price) OVER (PARTITION BY customer_id ORDER BY order_date) AS cumulative_price
+FROM orders;
